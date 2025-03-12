@@ -37,7 +37,7 @@ export default function DownloadButton({ palette, image }) {
     <>
       <canvas ref={canvasRef} className="hidden" />
       <div className="relative inline-block group">
-        <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
+        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all w-full sm:w-auto justify-center">
         <Download size={18} />
           Download
         </button>
