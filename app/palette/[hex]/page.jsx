@@ -66,33 +66,49 @@ export default function SharedPalette() {
 
   return (
     <main className="w-screen h-screen flex flex-col sm:flex-row">
-      {palette.map((color, index) => (
-        <div
-          key={index}
-          className="relative flex-1 flex sm:h-full h-[150px] transition-all duration-300 hover:flex-[1.2] justify-center items-center"
-          style={{ backgroundColor: color.hex }}
-        >
-          {/* Color Details */}
-          <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-white/20 text-white text-sm p-4 rounded-lg flex flex-wrap gap-2 justify-center w-[90%] sm:w-[70%] max-w-[350px]">
-            {["hex", "rgb", "hsl"].map((format) => (
-              <div
-                key={format}
-                onClick={() => copyToClipboard(color[format], index)}
-                className="flex items-center gap-2 px-3 py-2 bg-black/30 rounded-md cursor-pointer w-full sm:w-auto"
-              >
-                <span>{color[format]}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Copy Success Notification */}
-          {copiedColor === index && (
-            <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-3 py-1 rounded-md shadow-md">
-              Copied!
+      {/* Scrollable container only on mobile */}
+      <div className="flex-1 flex flex-col sm:flex-row sm:overflow-hidden overflow-y-auto">
+        {palette.map((color, index) => (
+          <div
+            key={index}
+            className="relative flex-1 flex sm:h-full h-[150px] transition-all duration-300 hover:flex-[1.2] justify-center items-center"
+            style={{ backgroundColor: color.hex }}
+          >
+            {/* Desktop View: Appears on Hover */}
+            <div className="hidden sm:flex absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-white/20 text-white text-sm p-4 rounded-lg flex-wrap gap-2 justify-center w-[90%] sm:w-[70%] max-w-[350px]">
+              {["hex", "rgb", "hsl"].map((format) => (
+                <div
+                  key={format}
+                  onClick={() => copyToClipboard(color[format], index)}
+                  className="flex items-center gap-2 px-3 py-2 bg-black/30 rounded-md cursor-pointer w-full sm:w-auto text-center"
+                >
+                  <span>{color[format]}</span>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
-      ))}
+
+            {/* Mobile View: Always Visible */}
+            <div className="sm:hidden absolute bottom-2 left-1/2 transform -translate-x-1/2 backdrop-blur-md bg-white/20 text-white text-xs p-2 rounded-lg flex flex-col gap-1 text-center">
+              {["hex", "rgb", "hsl"].map((format) => (
+                <div
+                  key={format}
+                  onClick={() => copyToClipboard(color[format], index)}
+                  className="px-2 py-1 bg-black/30 rounded cursor-pointer"
+                >
+                  {color[format]}
+                </div>
+              ))}
+            </div>
+
+            {/* Copy Success Notification */}
+            {copiedColor === index && (
+              <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-3 py-1 rounded-md shadow-md">
+                Copied!
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </main>
   );
 }

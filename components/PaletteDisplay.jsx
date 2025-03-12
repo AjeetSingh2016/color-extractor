@@ -4,6 +4,8 @@ import ColorCard from "./ColorCard";
 import DownloadButton from "./DownloadButton";
 import SharePopup from "./SharePopup"; // New component
 import { useState } from "react";
+import { Share2 } from "lucide-react";
+
 
 export default function PaletteDisplay({ palette, image }) {
   const [dominantColor] = palette;
@@ -41,11 +43,12 @@ export default function PaletteDisplay({ palette, image }) {
       <div className="flex gap-4 justify-end">
         <DownloadButton palette={palette} image={image} />
         <button
-          onClick={() => setIsShareOpen(true)}
-          className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all"
-        >
-          Share Palette
-        </button>
+  onClick={() => setIsShareOpen(true)}
+  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all"
+>
+  <Share2 size={18} />
+  Share Palette
+</button>
       </div>
       {isShareOpen && (
         <SharePopup shareUrl={shareUrl} onClose={() => setIsShareOpen(false)} />

@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import { Download } from "lucide-react";
 
 export default function DownloadButton({ palette, image }) {
   const canvasRef = useRef(null);
@@ -36,7 +37,8 @@ export default function DownloadButton({ palette, image }) {
     <>
       <canvas ref={canvasRef} className="hidden" />
       <div className="relative inline-block group">
-        <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
+        <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
+        <Download size={18} />
           Download
         </button>
         <div className="absolute right-0 mt-2 w-24 bg-white dark:bg-gray-800 shadow-lg rounded opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200 z-10">
