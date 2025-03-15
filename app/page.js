@@ -11,16 +11,16 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
 
   // Handle scroll effect for header
-  useLayoutEffect(() => {
-    setIsScrolled(window.scrollY > 20);
+  // useLayoutEffect(() => {
+  //   setIsScrolled(window.scrollY > 20);
   
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+  //   const handleScroll = () => {
+  //     setIsScrolled(window.scrollY > 20);
+  //   };
   
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
   // Animations
   const cardVariants = {
     hover: { 
