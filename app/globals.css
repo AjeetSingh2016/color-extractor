@@ -1,5 +1,28 @@
 @import "tailwindcss";
+
 @tailwind utilities;
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 1920px;
+  
+  /* Primary Colors */
+  --color-primary-background: #fffffe;
+  --color-primary-headline: #00214d;
+  --color-primary-paragraph: #1b2d45;
+  --color-primary-button: #00ebc7;
+  --color-primary-button-text: #00214d;
+  --color-primary-stroke: #00214d;
+  --color-primary-main: #fffffe;
+  --color-primary-highlight: #00ebc7;
+  --color-primary-secondary: #ff5470;
+  --color-primary-tertiary: #fde24f;
+
+  /* Easing */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+}
+
 
 html,
 body {

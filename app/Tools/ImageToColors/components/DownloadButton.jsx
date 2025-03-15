@@ -1,8 +1,11 @@
 "use client";
 import { useRef } from "react";
 import { Download } from "lucide-react";
+import { theme, containerVariants, itemVariants, cardVariants } from '../../../theme';
+export default function DownloadButton({ palette, image, isDarkMode = false }) {
 
-export default function DownloadButton({ palette, image }) {
+   const currentTheme = isDarkMode ? theme.dark : theme.light;
+
   const canvasRef = useRef(null);
 
   const downloadPNG = () => {
@@ -37,7 +40,8 @@ export default function DownloadButton({ palette, image }) {
     <>
       <canvas ref={canvasRef} className="hidden" />
       <div className="relative inline-block group">
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all w-full sm:w-auto justify-center">
+        <button className={`flex items-center gap-2 px-6 py-3 ${currentTheme.button} bg-opacity-10 hover:bg-opacity-20 text-white rounded-full 
+            transition-all duration-300 w-full sm:w-auto justify-center shadow-lg border ${currentTheme.button}`}>
         <Download size={18} />
           Download
         </button>

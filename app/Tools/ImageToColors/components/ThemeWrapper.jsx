@@ -12,7 +12,7 @@ export default function ThemeWrapper({ children }) {
   if (!mounted) {
     // Render a static fallback during server-side rendering
     return (
-      <div className="min-h-screen bg-gray-100 text-gray-800">
+      <div className="min-h-screen bg-gray-100 text-gray-800 dark:bg-red-500">
         {children}
       </div>
     );
