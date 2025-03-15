@@ -5,6 +5,7 @@ import { Copy, Filter, X, ChevronLeft, Moon, Sun, Search, Share2, Check } from '
 import Link from 'next/link';
 import "./style.css"
 
+
 // Theme configuration
 const theme = {
   light: {
@@ -32,7 +33,10 @@ const theme = {
 };
 
 // Constants
-const API_URL = "https://ncert-epub.s3.us-east-1.amazonaws.com/test/colors.json";
+// const API_URL = "https://ncert-epub.s3.us-east-1.amazonaws.com/test/colors.json";
+
+const API_URL = "/api/colors";
+
 const BATCH_SIZE = 500;
 
 export default function ColorLibrary() {
