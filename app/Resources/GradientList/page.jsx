@@ -1,12 +1,10 @@
 "use client";
-import { useState, useEffect, memo} from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Search, X, Filter, ChevronDown } from "lucide-react";
+import { ArrowLeft, Search, X, Filter, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import GradientCard from "./components/GradientCard";
 import { containerVariants, itemVariants } from "@/app/theme";
 import { gradientsData } from "./data/gradientsData";
-
-const MemoizedGradientCard = memo(GradientCard)
 
 export default function GradientsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,22 +13,15 @@ export default function GradientsPage() {
   const [colorCount, setColorCount] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [resultsCount, setResultsCount] = useState(gradientsData.gradients.length);
-
-  const gradients = gradientsData.gradients;
-  const [selectedGradientIndex, setSelectedGradientIndex] = useState(-1)
+  const [selectedGradient, setSelectedGradient] = useState(null); // New state for selected gradient
 
   const filteredGradients = gradientsData.gradients.filter((gradient) => {
-    const matchesSearch = gradient.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+    const matchesSearch = gradient.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = typeFilter === "all" || gradient.type === typeFilter;
     const matchesCount =
       colorCount === "all" ||
-      (colorCount === "two-tone"
-        ? gradient.colors.length === 2
-        : gradient.colors.length > 2);
-    
-    // Fixed color scheme detection with proper regex
+      (colorCount === "two-tone" ? gradient.colors.length === 2 : gradient.colors.length > 2);
+
     const matchesScheme =
       colorScheme === "all" ||
       (colorScheme === "warm"
@@ -42,20 +33,19 @@ export default function GradientsPage() {
         : colorScheme === "neon"
         ? gradient.colors.some((c) => c.includes("ff") || c.includes("00"))
         : colorScheme === "monochrome"
-        ? gradient.colors.every((c, _, arr) => 
+        ? gradient.colors.every((c, _, arr) =>
             c.substring(1, 3) === arr[0].substring(1, 3) ||
             c.substring(3, 5) === arr[0].substring(3, 5) ||
-            c.substring(5, 7) === arr[0].substring(5, 7))
+            c.substring(5, 7) === arr[0].substring(5, 7)
+          )
         : true);
     return matchesSearch && matchesType && matchesCount && matchesScheme;
   });
 
-  // Update results count when filters change
   useEffect(() => {
     setResultsCount(filteredGradients.length);
   }, [filteredGradients]);
 
-  // Clear all filters
   const clearFilters = () => {
     setSearchTerm("");
     setTypeFilter("all");
@@ -63,21 +53,25 @@ export default function GradientsPage() {
     setColorCount("all");
   };
 
-  // Check if any filters are active
-  const hasActiveFilters = 
-    searchTerm !== "" || 
-    typeFilter !== "all" || 
-    colorScheme !== "all" || 
+  const hasActiveFilters =
+    searchTerm !== "" ||
+    typeFilter !== "all" ||
+    colorScheme !== "all" ||
     colorCount !== "all";
 
-    const handleGradientChange = (newGradient) => {
-        const newIndex = gradients.findIndex(g => g.name === newGradient.name)
-        setSelectedGradientIndex(newIndex)
-      }
-    
-      const getCurrentGradient = (defaultGradient) => {
-        return selectedGradientIndex >= 0 ? gradients[selectedGradientIndex] : defaultGradient
-      }
+  // Navigation functions for full-screen view
+  const goToNextGradient = () => {
+    const currentIndex = filteredGradients.findIndex(g => g.name === selectedGradient.name);
+    const nextIndex = (currentIndex + 1) % filteredGradients.length; // Loop to start if at end
+    setSelectedGradient(filteredGradients[nextIndex]);
+  };
+
+  const goToPreviousGradient = () => {
+    const currentIndex = filteredGradients.findIndex(g => g.name === selectedGradient.name);
+    const prevIndex = (currentIndex - 1 + filteredGradients.length) % filteredGradients.length; // Loop to end if at start
+    setSelectedGradient(filteredGradients[prevIndex]);
+  };
+
   return (
     <div className="min-h-screen bg-primary-background">
       {/* Navigation */}
@@ -95,16 +89,11 @@ export default function GradientsPage() {
         variants={containerVariants}
         className="text-center pt-12 pb-8 px-6 max-w-7xl mx-auto"
       >
-        <motion.h1
-          variants={itemVariants}
-          className="text-5xl font-bold mb-4 tracking-tight"
-        >
+        <motion.h1 variants={itemVariants} className="text-5xl font-bold mb-4 tracking-tight">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
             Gradient
           </span>{" "}
-          <span className="text-gray-800">
-            Collection
-          </span>
+          <span className="text-gray-800">Collection</span>
         </motion.h1>
         <motion.p
           variants={itemVariants}
@@ -118,12 +107,8 @@ export default function GradientsPage() {
       {/* Search and Filter Controls */}
       <div className="max-w-7xl mx-auto px-6 mb-8">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-          {/* Search bar */}
           <div className="relative mb-4">
-            <Search
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-              size={20}
-            />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
               placeholder="Search gradients by name..."
@@ -132,7 +117,7 @@ export default function GradientsPage() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             {searchTerm && (
-              <button 
+              <button
                 onClick={() => setSearchTerm("")}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
@@ -141,7 +126,6 @@ export default function GradientsPage() {
             )}
           </div>
 
-          {/* Filter toggle for mobile */}
           <div className="md:hidden mb-4">
             <button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -156,14 +140,10 @@ export default function GradientsPage() {
                   </span>
                 )}
               </div>
-              <ChevronDown
-                size={18}
-                className={`transition-transform ${isFilterOpen ? "rotate-180" : ""}`}
-              />
+              <ChevronDown size={18} className={`transition-transform ${isFilterOpen ? "rotate-180" : ""}`} />
             </button>
           </div>
 
-          {/* Filter options - responsive */}
           <div className={`${isFilterOpen ? "block" : "hidden"} md:block`}>
             <div className="flex flex-col md:flex-row gap-4">
               <select
@@ -221,10 +201,7 @@ export default function GradientsPage() {
       {/* Gradient Grid */}
       <div className="max-w-7xl mx-auto px-6 pb-16">
         {filteredGradients.length > 0 ? (
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-            layout
-          >
+          <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" layout>
             <AnimatePresence>
               {filteredGradients.map((gradient) => (
                 <motion.div
@@ -234,13 +211,9 @@ export default function GradientsPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   layout
                   className="transition-all duration-300"
+                  onClick={() => setSelectedGradient(gradient)} // Open full-screen on click
                 >
-                 <MemoizedGradientCard 
-          key={gradient.name}
-          gradient={getCurrentGradient(gradient)}
-          gradientsList={gradients}
-          onGradientChange={handleGradientChange}
-        />
+                  <GradientCard gradient={gradient} />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -261,6 +234,71 @@ export default function GradientsPage() {
           </div>
         )}
       </div>
+
+      {/* Full-screen Gradient Modal */}
+      <AnimatePresence>
+        {selectedGradient && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+            onClick={() => setSelectedGradient(null)} // Close on backdrop click
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="relative w-full h-full"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+            >
+              {/* Full-screen gradient */}
+              <div
+                className="w-full h-full"
+                style={{
+                  background: selectedGradient.css.match(/linear-gradient\([^)]*\)/)?.[0] || selectedGradient.css,
+                }}
+              />
+
+              {/* Navigation Buttons */}
+              <div className="absolute inset-0 flex items-center justify-between px-6">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 bg-white/80 rounded-full shadow-md text-gray-800 hover:bg-white transition-colors"
+                  onClick={goToPreviousGradient}
+                >
+                  <ChevronLeft size={24} />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 bg-white/80 rounded-full shadow-md text-gray-800 hover:bg-white transition-colors"
+                  onClick={goToNextGradient}
+                >
+                  <ChevronRight size={24} />
+                </motion.button>
+              </div>
+
+              {/* Close Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="absolute top-4 right-4 p-2 bg-white/80 rounded-full shadow-md text-gray-800 hover:bg-white transition-colors"
+                onClick={() => setSelectedGradient(null)}
+              >
+                <X size={20} />
+              </motion.button>
+
+              {/* Gradient Info */}
+              <div className="absolute bottom-6 left-6 text-white">
+                <h2 className="text-2xl font-bold">{selectedGradient.name}</h2>
+                <p className="text-sm">{selectedGradient.type} Gradient</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 py-8">

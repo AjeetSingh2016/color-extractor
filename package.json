@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-spring/web": "^9.7.5",
     "@tanstack/react-virtual": "^3.13.4",
     "@vercel/og": "^0.6.5",
     "color-convert": "^3.0.1",
