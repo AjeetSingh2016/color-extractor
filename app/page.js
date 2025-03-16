@@ -148,7 +148,7 @@ export default function Home() {
       )}
 
       {/* Main Container */}
-      <div className="relative pt-20">
+      <div className="relative pt-15">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center pb-12 px-4 overflow-hidden">
           <div className="max-w-6xl mx-auto text-center relative z-10">
