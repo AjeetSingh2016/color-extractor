@@ -13,7 +13,7 @@ export default function GradientsPage() {
   const [colorCount, setColorCount] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [resultsCount, setResultsCount] = useState(gradientsData.gradients.length);
-  const [selectedGradient, setSelectedGradient] = useState(null); // New state for selected gradient
+  const [selectedGradient, setSelectedGradient] = useState(null);
 
   const filteredGradients = gradientsData.gradients.filter((gradient) => {
     const matchesSearch = gradient.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -59,17 +59,20 @@ export default function GradientsPage() {
     colorScheme !== "all" ||
     colorCount !== "all";
 
-  // Navigation functions for full-screen view
   const goToNextGradient = () => {
     const currentIndex = filteredGradients.findIndex(g => g.name === selectedGradient.name);
-    const nextIndex = (currentIndex + 1) % filteredGradients.length; // Loop to start if at end
+    const nextIndex = (currentIndex + 1) % filteredGradients.length;
     setSelectedGradient(filteredGradients[nextIndex]);
   };
 
   const goToPreviousGradient = () => {
     const currentIndex = filteredGradients.findIndex(g => g.name === selectedGradient.name);
-    const prevIndex = (currentIndex - 1 + filteredGradients.length) % filteredGradients.length; // Loop to end if at start
+    const prevIndex = (currentIndex - 1 + filteredGradients.length) % filteredGradients.length;
     setSelectedGradient(filteredGradients[prevIndex]);
+  };
+
+  const handleGradientClick = (gradient) => {
+    setSelectedGradient(gradient);
   };
 
   return (
@@ -211,9 +214,8 @@ export default function GradientsPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   layout
                   className="transition-all duration-300"
-                  onClick={() => setSelectedGradient(gradient)} // Open full-screen on click
                 >
-                  <GradientCard gradient={gradient} />
+                  <GradientCard gradient={gradient} onGradientClick={handleGradientClick} />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -243,24 +245,21 @@ export default function GradientsPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-            onClick={() => setSelectedGradient(null)} // Close on backdrop click
+            onClick={() => setSelectedGradient(null)}
           >
             <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
               className="relative w-full h-full"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Full-screen gradient */}
               <div
                 className="w-full h-full"
                 style={{
                   background: selectedGradient.css.match(/linear-gradient\([^)]*\)/)?.[0] || selectedGradient.css,
                 }}
               />
-
-              {/* Navigation Buttons */}
               <div className="absolute inset-0 flex items-center justify-between px-6">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -279,8 +278,6 @@ export default function GradientsPage() {
                   <ChevronRight size={24} />
                 </motion.button>
               </div>
-
-              {/* Close Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -289,8 +286,6 @@ export default function GradientsPage() {
               >
                 <X size={20} />
               </motion.button>
-
-              {/* Gradient Info */}
               <div className="absolute bottom-6 left-6 text-white">
                 <h2 className="text-2xl font-bold">{selectedGradient.name}</h2>
                 <p className="text-sm">{selectedGradient.type} Gradient</p>

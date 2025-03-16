@@ -1,24 +1,20 @@
 "use client"
 import { motion } from 'framer-motion'
 import { Copy, Download, Share2, Check, ChevronDown, Code, Palette } from 'lucide-react'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
 // Helper function to determine if a color is dark or light
 const getTextColor = (hexColor) => {
-  // Convert hex to RGB
   const r = parseInt(hexColor.slice(1, 3), 16);
   const g = parseInt(hexColor.slice(3, 5), 16);
   const b = parseInt(hexColor.slice(5, 7), 16);
-  // Calculate luminance (simplified formula)
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.5 ? '#000000' : '#FFFFFF'; // Black for light colors, white for dark
+  return luminance > 0.5 ? '#000000' : '#FFFFFF';
 };
 
-const GradientCard = ({ gradient }) => {
+const GradientCard = ({ gradient, onGradientClick }) => {
   const [copiedColor, setCopiedColor] = useState(null)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false)
-  const menuRef = useRef(null)
+  const [copiedCSS, setCopiedCSS] = useState(false) // New state for CSS copy feedback
 
   const gradientValue = gradient.css.match(/linear-gradient\([^)]*\)/)?.[0] || gradient.css;
   const gradientType = gradient.type || "linear";
@@ -26,29 +22,31 @@ const GradientCard = ({ gradient }) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(gradient.css)
+    setCopiedCSS(true) // Set to true when CSS is copied
+    setTimeout(() => setCopiedCSS(false), 2000) // Reset after 2 seconds
   }
 
-  const handleDownload = () => {
-    const element = document.createElement('a');
-    const file = new Blob([gradient.css], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = `${gradient.name.toLowerCase().replace(/\s+/g, '-')}-gradient.css`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  }
+//   const handleDownload = () => {
+//     const element = document.createElement('a');
+//     const file = new Blob([gradient.css], {type: 'text/plain'});
+//     element.href = URL.createObjectURL(file);
+//     element.download = `${gradient.name.toLowerCase().replace(/\s+/g, '-')}-gradient.css`;
+//     document.body.appendChild(element);
+//     element.click();
+//     document.body.removeChild(element);
+//   }
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: `${gradient.name} Gradient`,
-        text: `Check out this beautiful ${gradient.name} gradient!`,
-        url: window.location.href,
-      })
-    } else {
-      copyToClipboard();
-    }
-  }
+//   const handleShare = () => {
+//     if (navigator.share) {
+//       navigator.share({
+//         title: `${gradient.name} Gradient`,
+//         text: `Check out this beautiful ${gradient.name} gradient!`,
+//         url: window.location.href,
+//       })
+//     } else {
+//       copyToClipboard();
+//     }
+//   }
 
   const copyColor = (color) => {
     navigator.clipboard.writeText(color)
@@ -68,7 +66,7 @@ const GradientCard = ({ gradient }) => {
         <motion.div 
           className="h-48 w-full cursor-pointer"
           style={{ background: gradientValue }}
-          onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+          onClick={() => onGradientClick(gradient)}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         >
@@ -90,7 +88,11 @@ const GradientCard = ({ gradient }) => {
             onClick={copyToClipboard}
             title="Copy CSS"
           >
-            <Copy size={16} />
+            {copiedCSS ? (
+              <Check size={16} className="text-green-500" />
+            ) : (
+              <Copy size={16} />
+            )}
           </motion.button>
         </div>
       </div>
