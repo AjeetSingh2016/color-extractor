@@ -115,12 +115,12 @@ export default function ColorLibrary() {
 
   const [gridColumns, setGridColumns] = useState(getGridColumns());
 
-  useEffect(() => {
-    const handleResize = () => setGridColumns(getGridColumns());
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // useEffect(() => {
+  //   const handleResize = () => setGridColumns(getGridColumns());
+  //   handleResize();
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
