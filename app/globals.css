@@ -5,15 +5,9 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer theme {
-  :root {
-    --color-bg: white;
-    --color-text: black;
-    --font-display: "Satoshi", "sans-serif";
-    --breakpoint-3xl: 1920px;
-
-    /* Primary Colors */
-    --color-primary-background: #fffffe;
+@theme{
+   /* Primary Colors */
+    --color-primary-background: #F7F9FB;
     --color-primary-headline: #00214d;
     --color-primary-paragraph: #1b2d45;
     --color-primary-button: #00ebc7;
@@ -27,10 +21,9 @@
     /* Easing */
     --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
     --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
-  }
 
   /* Dark mode variables */
-  .dark {
+  /* .dark {
     --color-bg: #18181b;
     --color-text: white;
     --color-primary-background: #1b1b1f;
@@ -43,10 +36,10 @@
     --color-primary-highlight: #00ebc7;
     --color-primary-secondary: #ff5470;
     --color-primary-tertiary: #fde24f;
-  }
+  } */
 }
 
-html,
+/* html,
 body {
   height: 100%;
   margin: 0;
@@ -55,7 +48,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-display), sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
-}
+} */
 
 .magic-pattern {
   background-color: #000022;

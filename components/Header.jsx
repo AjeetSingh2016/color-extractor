@@ -44,6 +44,7 @@ const Header = () => {
 
   return (
     <motion.header
+    suppressHydrationWarning={true}
       className={`fixed w-full top-0 z-50 transition-all duration-300
         bg-white/90 dark:bg-slate-900/90
         ${isScrolled ? "shadow-lg py-2" : "py-4"} backdrop-blur-md`}
@@ -72,28 +73,26 @@ const Header = () => {
           <div className="flex items-center space-x-6">
             {Object.entries(Resources).map(([path, name], index) => (
               <Link key={index} href={path}>
-              <motion.span
-                className={`text-base transition-all duration-300 relative px-1 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white ${
-                  pathname === path ? 'font-semibold' : ''
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {name}
-                {pathname === path && (
-                  <motion.span
-                    className="absolute bottom-0 left-0 w-full h-0.5 rounded-full bg-indigo-600 dark:bg-indigo-400"
-                    layoutId="navIndicator"
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </motion.span>
-            </Link>
-            
+                
+                <motion.span
+                  className="text-base font-medium transition-all duration-300 relative px-1 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white "
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {name}
+                  {pathname === path && (
+                    <motion.span
+                      className="absolute bottom-0 left-0 w-full h-0.5 rounded-full bg-indigo-600 dark:bg-indigo-400"
+                      layoutId="navIndicator"
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </motion.span>
+              </Link>
             ))}
           </div>
 

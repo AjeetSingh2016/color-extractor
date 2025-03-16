@@ -451,7 +451,7 @@ const ColorCard = ({ color, copyToClipboard }) => {
       <div className="absolute bottom-0 w-full bg-white px-4 py-2 flex justify-between items-center">
         <span className="text-sm font-semibold truncate">{color.name}</span>
 
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="p-2 rounded-full bg-gray-200 shadow-sm"
@@ -459,7 +459,7 @@ const ColorCard = ({ color, copyToClipboard }) => {
           aria-label="Share color"
         >
           <Share2 className="h-4 w-4 text-gray-700" />
-        </motion.button>
+        </motion.button> */}
       </div>
 
       {/* Copy Success Notification */}
