@@ -24,7 +24,7 @@ export default function ExploreTools() {
   // Centralized tools data
   const toolsData = [
     {
-      id: "UnderConstruction",
+      id: "/Resources/PaletteList",
       icon: <Palette />,
       title: "🎨 Curated Color Palettes",
       shortDescription: "Handpicked color schemes for UI/UX inspiration.",
@@ -33,7 +33,7 @@ export default function ExploreTools() {
       color: "from-purple-500 to-indigo-500",
     },
     {
-      id: "GradientGenerator",
+      id: "/Tools/GradientGenerator",
       icon: <Layers />,
       title: "🌈 Live Gradient Generator",
       shortDescription: "Create and preview beautiful gradients in real-time.",
@@ -42,7 +42,7 @@ export default function ExploreTools() {
       color: "from-blue-500 to-cyan-400",
     },
     {
-      id: "ImageToColors",
+      id: "/Tools/ImageToColors",
       icon: <Image />,
       title: "📷 Extract Palette from Images",
       shortDescription: "Upload an image and extract its dominant colors.",
@@ -51,7 +51,7 @@ export default function ExploreTools() {
       color: "from-emerald-500 to-green-500",
     },
     {
-      id: "CodeConvertor",
+      id: "/Tools/CodeConvertor",
       icon: <Shuffle />,
       title: "🔄 Color Models Converter",
       shortDescription: "Convert between HEX, RGB, HSL, and CMYK formats.",
@@ -81,7 +81,7 @@ export default function ExploreTools() {
       color: "from-violet-500 to-purple-500",
     },
     {
-      id: "ColorList",
+      id: "/Resources/ColorList",
       icon: <Bookmark />,
       title: "📚 Color Library",
       shortDescription: "Browse a list of named colors with HEX codes.",
@@ -90,7 +90,7 @@ export default function ExploreTools() {
       color: "from-teal-500 to-cyan-500",
     },
     {
-      id: "UnderConstruction",
+      id: "/Resources/GradientList",
       icon: <Layers />,
       title: "🌟 Gradient Collection",
       shortDescription: "Explore stunning pre-made gradient combinations.",
@@ -162,6 +162,8 @@ export default function ExploreTools() {
           content="Explore all ColorCraft tools for color design"
         />
       </Head>
+
+
 
       {/* Floating Theme Toggle */}
       <div className="fixed bottom-6 right-6 z-50">
@@ -256,7 +258,7 @@ export default function ExploreTools() {
                     {/* Action Button */}
                     <div>
                       <Link
-                        href={`/Tools/${tool.id}`}
+                        href={tool.id}
                         className="inline-flex items-center justify-center rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 transition-all duration-300 font-medium shadow-md hover:shadow-lg"
                       >
                         <span className="text-white">Try Now</span>
@@ -336,13 +338,6 @@ export default function ExploreTools() {
                 Start using our professional color tools today and take your
                 designs to the next level.
               </p>
-              <a
-                href="/sign-up"
-                className="inline-flex items-center justify-center rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 transition-all duration-300 font-medium shadow-md hover:shadow-lg group"
-              >
-                <span className="text-white">Create Free Account</span>
-                <ArrowRight className=" text-white ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </a>
             </div>
             <div className="md:w-1/3 flex justify-center">
               <div className="w-36 h-36 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg">
