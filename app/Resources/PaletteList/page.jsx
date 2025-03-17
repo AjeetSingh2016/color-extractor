@@ -1,9 +1,11 @@
 "use client";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { palettes } from "./data/palettes";
 import PaletteCard from "./components/PaletteCard";
 import { Search, Filter } from "lucide-react";
+import { containerVariants, itemVariants } from "@/app/theme";
 
 export default function Home() {
   const [search, setSearch] = useState("");
@@ -24,10 +26,7 @@ export default function Home() {
     return matchesSearch && matchesType && matchesUsage;
   });
 
-  const handleRedirect = (colors) => {
-    const colorString = colors.map((color) => color.replace("#", "")).join("-");
-    router.push(`/Resources/PaletteList/${colorString}`);
-  };
+
 
   useEffect(() => {
     // Add smooth fade-in effect for palette cards
@@ -40,18 +39,32 @@ export default function Home() {
   }, [filteredPalettes]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 ">
       <div className="py-8"></div>
       <div className="p-6 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-            Color Palette Explorer
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            Find the perfect color combination for your next project
-          </p>
-        </div>
+
+              {/* Header */}
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={containerVariants}
+        className="text-center pb-8 px-6 max-w-7xl mx-auto"
+      >
+        <motion.h1 variants={itemVariants} className="text-4xl font-bold mb-4 tracking-tight">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+          Color 
+          </span>{" "}
+          <span className="text-gray-800">Palette Explorer</span>
+        </motion.h1>
+        <motion.p
+          variants={itemVariants}
+          transition={{ delay: 0.1 }}
+          className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
+        >
+         Find the perfect color combination for your next project
+        </motion.p>
+      </motion.div>
+    
 
         {/* Search Bar */}
         <div className="relative mb-6 max-w-2xl mx-auto">
@@ -122,7 +135,9 @@ export default function Home() {
         </div>
 
         {/* Results Summary */}
-        <div className="mb-4 flex justify-between items-center">
+
+        {
+          filters.type !== 'All' ? <div className="mb-4 flex justify-between items-center">
           <button
             onClick={() => {
               setSearch("");
@@ -132,8 +147,10 @@ export default function Home() {
           >
             Clear all filters
           </button>
-        </div>
+        </div> : ""
 
+        }
+       
         {/* Palette Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredPalettes.length > 0 ? (
@@ -142,7 +159,7 @@ export default function Home() {
                 key={palette.id}
                 className="palette-card opacity-0 transform hover:scale-105 transition-transform duration-200"
               >
-                <PaletteCard palette={palette} onRedirect={handleRedirect} />
+                <PaletteCard palette={palette}/>
               </div>
             ))
           ) : (
