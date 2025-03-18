@@ -153,7 +153,7 @@ export default function ExploreTools() {
 
   return (
     <div
-      className={`min-h-screen ${currentTheme.background} transition-colors duration-500 font-sans pb-20`}
+      className={`min-h-screen ${currentTheme.background} transition-colors duration-500 font-sans`}
     >
       <Head>
         <title>Explore Tools - ColorCraft</title>
@@ -162,27 +162,11 @@ export default function ExploreTools() {
           content="Explore all ColorCraft tools for color design"
         />
       </Head>
+      <div className="py-10">
 
-
-
-      {/* Floating Theme Toggle */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`${currentTheme.card} shadow-lg rounded-full p-3 flex items-center justify-center transition-all duration-300 hover:scale-110`}
-          aria-label={
-            isDarkMode ? "Switch to light mode" : "Switch to dark mode"
-          }
-        >
-          {isDarkMode ? (
-            <Sun className="h-5 w-5 text-yellow-400" />
-          ) : (
-            <Moon className="h-5 w-5 text-indigo-600" />
-          )}
-        </button>
       </div>
 
-      <main className="max-w-6xl mx-auto px-6 pt-16">
+      <main className="max-w-6xl mx-auto px-6 ">
         {/* Page Title */}
         <div className="mb-20 text-center">
           <motion.h1
