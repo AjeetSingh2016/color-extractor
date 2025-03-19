@@ -4,7 +4,6 @@ import BenefitsSection from "@/components/Home/BenefitsSection";
 import ToolsSection from "@/components/Home/ToolsSection";
 import TestimonialsSection from "@/components/Home/TestimonialsSection";
 import CTASection from "@/components/Home/CTASection";
-import MobileMenu from "@/components/Home/MobileMenu";
 import FloatingCTA from "@/components/Home/FloatingCTA";
 
 const BASE_URL = "https://colorcraft.dev";
@@ -91,8 +90,7 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen ${currentTheme.background} transition-colors duration-500 font-sans`}>
-      <MobileMenu currentTheme={currentTheme} />
-      <div className="relative pt-15">
+      <div className="relative">
         <HeroSection currentTheme={currentTheme} />
         <BenefitsSection
           currentTheme={currentTheme}

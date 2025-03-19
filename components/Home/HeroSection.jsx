@@ -61,7 +61,7 @@ export default function HeroSection({ currentTheme }) {
           </Link>
           <Link
             href="/Tools"
-            className={`rounded-full px-8 py-4 text-lg font-medium ${currentTheme.buttonOutline} transition-all duration-300 transform hover:-translate-y-1`}
+            className={`rounded-full px-8 py-4 text-lg font-medium ${currentTheme.buttonOutline} transition-all duration-300 transform hover:-translate-y-1 border-1`}
           >
             Explore Tools
           </Link>
