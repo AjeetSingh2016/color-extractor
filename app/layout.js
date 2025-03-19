@@ -17,6 +17,9 @@ export const metadata = {
   alternates: {
     canonical: "/", // Using relative URL with metadataBase set
   },
+  icons: {
+    icon: "/favicon.ico", // Path relative to the `app/` directory
+  },
   openGraph: {
     title: "ColorCraft - The Ultimate Color Toolkit",
     description:

@@ -10,11 +10,14 @@ const BASE_URL = "https://colorcraft.dev";
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
-  title: "ColorCraft - Ultimate Color Toolkit for Designers & Developers",
+  title: "ColorCraft",
   description:
-    "ColorCraft is the ultimate color toolkit for designers and developers. Generate gradients, extract palettes, check contrast, and more—all in one place.",
+    "Color Toolkit - Color Palettes · Gradient Library · Gradient Maker · Image to Colors · Color Code Convertor",
   keywords: "color toolkit, gradient generator, palette extractor, accessibility tools, design tools, developer tools",
   robots: "index, follow",
+  icons: {
+    icon: "/favicon.ico", // Path relative to the `app/` directory
+  },
   alternates: {
     canonical: "/", // Uses relative URL (Next.js will prepend metadataBase)
   },
@@ -57,7 +60,7 @@ export const metadata = {
         "name": "ColorCraft",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://colorcraft.dev/icon.png",
+          "url": "https://colorcraft.dev/icon.svg",
           "width": 512,
           "height": 512
         }
