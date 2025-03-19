@@ -1,4 +1,4 @@
-import ColorLibrary from "./components/ColorLibrary";
+import ColorLibrary from "./Components/ColorLibrary";
 
 const BASE_URL = "https://colorcraft.dev";
 
