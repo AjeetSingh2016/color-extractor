@@ -1,4 +1,3 @@
-// pages/explore-tools.js
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -12,9 +11,6 @@ import {
   Bookmark,
   Layers,
   ArrowRight,
-  ChevronLeft,
-  Moon,
-  Sun,
 } from "lucide-react";
 import Link from "next/link";
 

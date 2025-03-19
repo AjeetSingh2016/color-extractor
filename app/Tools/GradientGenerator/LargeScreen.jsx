@@ -20,7 +20,7 @@ export default function LargeScreen({
   shareLink,
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-start justify-center p-6 pt-25">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-start justify-center p-6 ">
       <div className="w-full flex flex-col lg:flex-row lg:space-x-8">
         
         <div className="flex flex-col lg:flex-row w-full">

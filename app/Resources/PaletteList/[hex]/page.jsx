@@ -10,7 +10,6 @@ import PaletteCard from "../components/PaletteCard"; // Assuming PaletteCard is 
 export default function PalettePage() {
   const params = useParams();
   const { hex } = params; // e.g., "FF5733-FF8D1A-FFC300-DAF7A6_warm"
-  const router = useRouter();
   const [copiedStates, setCopiedStates] = useState({});
   const [showDownloadOptions, setShowDownloadOptions] = useState(false);
   const downloadButtonRef = useRef(null);
@@ -125,7 +124,7 @@ export default function PalettePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 pt-25">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 pt-10">
       {/* Main Palette Display */}
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px] mb-8">
         <div className="grid grid-cols-4 gap-1 sm:gap-2 mb-4 sm:mb-6 rounded-lg overflow-hidden">

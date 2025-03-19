@@ -161,7 +161,7 @@ export const gradientsData = {
               "#4364F7",
               "#6FB1FC"
           ],
-          "type": "linear",
+          "type": "conic",
           "angle": 90,
           "css": "background: linear-gradient(90deg, #0052D4, #4364F7, #6FB1FC);"
       },

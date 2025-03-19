@@ -16,7 +16,10 @@ const footerData = {
         href: "https://x.com/AjeetSingh76422",
         icon: <Twitter className="h-6 w-6" />,
       },
-      { href: "https://www.linkedin.com/in/ajeet-singh-063978177/", icon: <Linkedin className="h-6 w-6" /> },
+      {
+        href: "https://www.linkedin.com/in/ajeet-singh-063978177/",
+        icon: <Linkedin className="h-6 w-6" />,
+      },
     ],
   },
   sections: [
@@ -71,19 +74,19 @@ const Footer = () => {
             {footerData.brand.description}
           </p>
           <div className="flex space-x-6">
-          <div className="flex space-x-6">
-  {footerData.brand.socialLinks.map((link, index) => (
-    <a
-      key={index}
-      href={link.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-slate-400 hover:text-white transition-colors duration-300"
-    >
-      {link.icon}
-    </a>
-  ))}
-</div>
+            <div className="flex space-x-6">
+              {footerData.brand.socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors duration-300"
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -112,6 +115,15 @@ const Footer = () => {
       {/* Copyright */}
       <div className="max-w-6xl mx-auto border-t border-slate-800 mt-12 pt-8 text-center">
         <p className="text-slate-400">{footerData.copyright}</p>
+      </div>
+      <div className="max-w-6xl mx-auto pt-3 text-center">
+        <a
+          className="text-sm"
+          href="https://www.flaticon.com/free-icons/color-palette"
+          title="color palette icons"
+        >
+          Color palette icons created by Freepik - Flaticon
+        </a>
       </div>
     </footer>
   );

@@ -5,6 +5,7 @@ import { Sun, Moon, Palette, Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 // Centralized tools object with descriptions and emojis
 const Tools = {
@@ -44,7 +45,7 @@ const Header = () => {
 
   return (
     <motion.header
-    suppressHydrationWarning={true}
+      suppressHydrationWarning={true}
       className={`fixed w-full top-0 z-50 transition-all duration-300
         bg-white/90 dark:bg-slate-900/90
         ${isScrolled ? "shadow-lg py-2" : "py-4"} backdrop-blur-md`}
@@ -54,14 +55,23 @@ const Header = () => {
     >
       <div className="max-w-6xl mx-auto px-4 md:px-1 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="group flex items-center space-x-3 transition-all">
+        <Link
+          href="/"
+          className="group flex items-center space-x-3 transition-all"
+        >
           <motion.div
-            whileHover={{ rotate: 180, scale: 1.1 }}
+            whileHover={{ rotate: 270, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.5 }}
             className="p-2 rounded-full bg-indigo-50 dark:bg-slate-800"
           >
-            <Palette className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            <Image
+              src="/icon.svg"
+              alt="Icon"
+              width={22}
+              height={22}
+              // className="w-6 h-6"
+            />
           </motion.div>
           <span className="text-xl md:text-2xl font-bold tracking-tight transition-colors duration-300 text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
             ColorCraft
@@ -73,7 +83,6 @@ const Header = () => {
           <div className="flex items-center space-x-6">
             {Object.entries(Resources).map(([path, name], index) => (
               <Link key={index} href={path}>
-                
                 <motion.span
                   className="text-base font-medium transition-all duration-300 relative px-1 py-2 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-white "
                   whileHover={{ scale: 1.05 }}
@@ -118,24 +127,26 @@ const Header = () => {
                   transition={{ duration: 0.2 }}
                   className="absolute top-12 right-0 w-72 bg-white dark:bg-slate-800 shadow-xl rounded-lg p-4 z-50" // Increased width from w-64 to w-72
                 >
-                  {Object.entries(Tools).map(([path, { name, emoji, description }], index) => (
-                    <Link key={index} href={path}>
-                      <motion.div
-                        className="flex items-start space-x-2 p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-md transition-colors duration-200"
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <span>{emoji}</span>
-                        <div>
-                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                            {name}
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            {description}
-                          </p>
-                        </div>
-                      </motion.div>
-                    </Link>
-                  ))}
+                  {Object.entries(Tools).map(
+                    ([path, { name, emoji, description }], index) => (
+                      <Link key={index} href={path}>
+                        <motion.div
+                          className="flex items-start space-x-2 p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-md transition-colors duration-200"
+                          whileHover={{ scale: 1.02 }}
+                        >
+                          <span>{emoji}</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                              {name}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      </Link>
+                    )
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -198,7 +209,11 @@ const Header = () => {
                 {/* Resources Section */}
                 <div>
                   {Object.entries(Resources).map(([path, name], index) => (
-                    <Link key={index} href={path} onClick={() => setIsMenuOpen(false)}>
+                    <Link
+                      key={index}
+                      href={path}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
                       <motion.div
                         className="p-3 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md transition-colors duration-200"
                         whileHover={{ scale: 1.05 }}
@@ -217,24 +232,30 @@ const Header = () => {
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3 pl-3">
                     Tools
                   </h3>
-                  {Object.entries(Tools).map(([path, { name, emoji, description }], index) => (
-                    <Link key={index} href={path} onClick={() => setIsMenuOpen(false)}>
-                      <motion.div
-                        className="flex items-start space-x-3 p-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md transition-colors duration-200"
-                        whileHover={{ scale: 1.05 }}
+                  {Object.entries(Tools).map(
+                    ([path, { name, emoji, description }], index) => (
+                      <Link
+                        key={index}
+                        href={path}
+                        onClick={() => setIsMenuOpen(false)}
                       >
-                        <span>{emoji}</span>
-                        <div>
-                          <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                            {name}
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            {description}
-                          </p>
-                        </div>
-                      </motion.div>
-                    </Link>
-                  ))}
+                        <motion.div
+                          className="flex items-start space-x-3 p-3 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-md transition-colors duration-200"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          <span>{emoji}</span>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                              {name}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {description}
+                            </p>
+                          </div>
+                        </motion.div>
+                      </Link>
+                    )
+                  )}
                 </div>
               </div>
             </motion.div>
